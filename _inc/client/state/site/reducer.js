@@ -14,7 +14,7 @@ import {
 	JETPACK_SITE_DATA_FETCH_FAIL
 } from 'state/action-types';
 
-const items = ( state = {}, action ) => {
+export const items = ( state = {}, action ) => {
 	switch ( action.type ) {
 		case JETPACK_SITE_DATA_FETCH_RECEIVE:
 			return assign( {}, action.siteData );
@@ -23,11 +23,11 @@ const items = ( state = {}, action ) => {
 	}
 };
 
-const initialRequestsState = {
+export const initialRequestsState = {
 	isFetchingSiteData: false
 };
 
-const requests = ( state = initialRequestsState, action ) => {
+export const requests = ( state = initialRequestsState, action ) => {
 	switch ( action.type ) {
 		case JETPACK_SITE_DATA_FETCH:
 			return assign( {}, state, {
@@ -53,21 +53,21 @@ export const reducer = combineReducers( {
  * Returns true if currently requesting site data. Otherwise false.
  * otherwise.
  *
- * @param  {Object}  state Global state tree
- * @return {Boolean}       Whether site data is being requested
+ * @param  {Object}  siteData Current Data for this site.
+ * @return {Boolean}          Whether site data is being requested
  */
-export function isFetchingSiteData( state ) {
-	return !!state.jetpack.siteData.requests.isFetchingSiteData;
+export function isFetchingSiteData( siteData ) {
+	return !!siteData.requests.isFetchingSiteData;
 }
 
 /**
  * Returns the plan of this site.
- * @param  {Object}  state Global state tree
+ * @param  {Object} siteData Current Data for this site.
  * @return {Object|Boolean}  Site plan
  */
-export function getSitePlan( state ) {
-	if ( 'string' === typeof state.jetpack.siteData.items.data ) {
-		let jsonData = JSON.parse( state.jetpack.siteData.items.data );
+export function getSitePlan( siteData ) {
+	if ( 'string' === typeof siteData.items.data ) {
+		let jsonData = JSON.parse( siteData.items.data );
 		return jsonData.plan;
 	}
 	return false;

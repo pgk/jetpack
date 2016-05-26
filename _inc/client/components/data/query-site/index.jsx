@@ -1,4 +1,3 @@
-
 /**
  * External dependencies
  */
@@ -27,8 +26,8 @@ export const QuerySite = React.createClass( {
 export default connect(
 	( state ) => {
 		return {
-			isFetchingSiteData: isFetchingSiteData( state ),
-			siteData: fetchSiteData( state )
+			isFetchingSiteData: isFetchingSiteData( state.jetpack.siteData ),
+			siteData: fetchSiteData()
 		};
 	},
 	( dispatch ) => {
