@@ -3657,10 +3657,18 @@ p {
 				check_admin_referer( 'jetpack-register' );
 				Jetpack::log( 'register' );
 				Jetpack::maybe_set_version_option();
+
 				$registered = Jetpack::try_registration();
+				// Comment out the line above
+				// Uncomment the last line and try to connect.
+				// You can test any error key. Get the full list of keys at:
+				// https://github.com/Automattic/jetpack/compare/add/jetpack-state-notices?expand=1#diff-30ae3239dbbcee448073a63cc3fd4bcfR22
+				// @todo Remove testing instructions
+//				$registered = new WP_Error( 'cheatin', 'This is a fake error message' );
+
 				if ( is_wp_error( $registered ) ) {
 					$error = $registered->get_error_code();
-					Jetpack::state( 'error_description', $error );
+					Jetpack::state( 'error', $error );
 					Jetpack::state( 'error_description', $registered->get_error_message() );
 					break;
 				}
